@@ -1,0 +1,27 @@
+.slot {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--ground-alt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+:global(.section-alt) .slot {
+  background: var(--ground);
+}
+
+.image {
+  object-fit: cover;
+}
+
+.initials {
+  font-size: clamp(56px, 8vw, 96px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  color: var(--text-secondary);
+  opacity: 0.5;
+}

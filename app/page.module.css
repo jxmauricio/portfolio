@@ -1,0 +1,244 @@
+.hero {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  align-items: center;
+  gap: clamp(32px, 6vw, 80px);
+  padding-top: clamp(48px, 9vw, 112px);
+  padding-bottom: clamp(48px, 7vw, 88px);
+}
+
+.headline {
+  font-size: clamp(40px, 6.4vw, 72px);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.04;
+  margin-top: 12px;
+}
+
+.intro {
+  margin-top: 24px;
+  font-size: clamp(17px, 2vw, 21px);
+  color: var(--text-secondary);
+  max-width: 560px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.heroPhoto {
+  max-width: 440px;
+  justify-self: end;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 28px 20px;
+}
+
+.stat:first-child {
+  padding-left: 0;
+}
+
+.stat + .stat {
+  border-left: 1px solid var(--hairline);
+}
+
+.statValue {
+  font-size: clamp(36px, 4.6vw, 52px);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+
+.statLabel {
+  font-size: 14px;
+  color: var(--text-secondary);
+  max-width: 220px;
+}
+
+.feature {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  align-items: end;
+  gap: 40px;
+  padding: clamp(28px, 5vw, 56px);
+  background: var(--ground-alt);
+  box-shadow: none;
+}
+
+.featureList {
+  margin: 28px 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 12px;
+}
+
+.featureList li {
+  position: relative;
+  padding-left: 22px;
+}
+
+.featureList li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.featureStack {
+  justify-content: flex-end;
+}
+
+.featureStack li {
+  background: var(--ground);
+}
+
+.graphWrap {
+  margin-top: 40px;
+}
+
+.roles {
+  list-style: none;
+  margin: 48px 0 0;
+  padding: 0;
+}
+
+.role {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 24px;
+  padding: 28px 0;
+  border-top: 1px solid var(--hairline);
+}
+
+.roleMeta {
+  font-size: 15px;
+  color: var(--text-secondary);
+  padding-top: 3px;
+}
+
+.roleTitle {
+  font-size: 21px;
+}
+
+.roleTeam {
+  margin-top: 4px;
+  color: var(--text-secondary);
+  font-size: 15px;
+}
+
+.roleHighlights {
+  margin: 14px 0 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 8px;
+  max-width: 720px;
+}
+
+.roleHighlights li::marker {
+  color: var(--text-secondary);
+}
+
+.aboutTeaser {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  align-items: center;
+  gap: clamp(32px, 6vw, 72px);
+}
+
+.aboutPhoto {
+  aspect-ratio: 1;
+}
+
+.aboutLink {
+  margin-top: 24px;
+}
+
+.contact {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contactActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+@media (max-width: 860px) {
+  .hero,
+  .feature,
+  .aboutTeaser {
+    grid-template-columns: 1fr;
+  }
+
+  .heroPhoto {
+    justify-self: start;
+    max-width: 360px;
+    order: -1;
+    aspect-ratio: 1;
+    width: 160px;
+  }
+
+  .featureStack {
+    justify-content: flex-start;
+  }
+
+  .aboutPhoto {
+    max-width: 240px;
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stat {
+    padding: 24px 16px;
+  }
+
+  .stat:nth-child(odd) {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .stat:nth-child(n + 3) {
+    border-top: 1px solid var(--hairline);
+  }
+}
+
+@media (max-width: 600px) {
+  .role {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .contactActions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

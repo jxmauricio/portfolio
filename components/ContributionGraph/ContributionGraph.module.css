@@ -1,0 +1,166 @@
+.graph {
+  --cell: 11px;
+  --gap: 3px;
+  padding: clamp(20px, 4vw, 32px);
+}
+
+@media (min-width: 1000px) {
+  .graph {
+    --cell: 13px;
+    --gap: 4px;
+  }
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.total {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.toggle {
+  display: inline-flex;
+  padding: 3px;
+  border-radius: var(--radius-pill);
+  background: var(--ground-alt);
+}
+
+.toggle button {
+  min-height: 36px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.toggle button[aria-pressed="true"] {
+  background: var(--toggle-active);
+  color: var(--text);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.frame {
+  position: relative;
+  display: flex;
+  gap: 8px;
+}
+
+.days {
+  display: grid;
+  grid-template-rows: repeat(7, var(--cell));
+  gap: var(--gap);
+  /* Line up with the cells, below the month row. */
+  padding-top: calc(13px + 8px);
+  font-size: 11px;
+  line-height: var(--cell);
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+.scroll {
+  overflow-x: auto;
+  scrollbar-width: thin;
+  padding-bottom: 4px;
+  min-width: 0;
+}
+
+.months {
+  display: grid;
+  grid-auto-columns: var(--cell);
+  grid-auto-flow: column;
+  column-gap: var(--gap);
+  height: 13px;
+  margin-bottom: 8px;
+  font-size: 11px;
+  line-height: 13px;
+  color: var(--text-secondary);
+}
+
+.months span {
+  grid-row: 1;
+  white-space: nowrap;
+}
+
+.cells {
+  display: grid;
+  grid-template-rows: repeat(7, var(--cell));
+  grid-auto-columns: var(--cell);
+  gap: var(--gap);
+  width: max-content;
+}
+
+.cell {
+  display: block;
+  width: var(--cell);
+  height: var(--cell);
+  border-radius: 3px;
+  background: var(--cell-empty);
+}
+
+.cell[data-level="1"] {
+  background: color-mix(in srgb, var(--accent) 25%, transparent);
+}
+
+.cell[data-level="2"] {
+  background: color-mix(in srgb, var(--accent) 50%, transparent);
+}
+
+.cell[data-level="3"] {
+  background: color-mix(in srgb, var(--accent) 75%, transparent);
+}
+
+.cell[data-level="4"] {
+  background: var(--accent);
+}
+
+.tooltip {
+  position: absolute;
+  transform: translate(-50%, calc(-100% - 8px));
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: var(--text);
+  color: var(--ground);
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+}
+
+.legend span:first-child {
+  margin-right: 4px;
+}
+
+.legend span:last-child {
+  margin-left: 4px;
+}

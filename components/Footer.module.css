@@ -1,0 +1,35 @@
+.footer {
+  border-top: 1px solid var(--hairline);
+  background: var(--ground-alt);
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px 24px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+.links a:hover {
+  color: var(--text);
+}
