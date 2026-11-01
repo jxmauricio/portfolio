@@ -1,0 +1,16 @@
+.frame {
+  width: min(300px, 78vw);
+  padding: 10px;
+  border-radius: 48px;
+  background: #1d1d1f;
+  border: 1px solid var(--hairline);
+  box-shadow: var(--shadow);
+}
+
+.video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 38px;
+  background: var(--ground-alt);
+}

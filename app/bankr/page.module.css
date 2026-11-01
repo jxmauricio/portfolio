@@ -40,6 +40,10 @@
   margin-top: 32px;
 }
 
+.demo {
+  margin-top: clamp(40px, 6vw, 64px);
+}
+
 .disabled {
   color: var(--text-secondary);
   border-color: var(--hairline);
@@ -86,10 +90,6 @@
   grid-template-columns: 1.2fr 1fr;
   align-items: end;
   gap: 40px;
-}
-
-.graphWrap {
-  margin-top: 40px;
 }
 
 .writing {

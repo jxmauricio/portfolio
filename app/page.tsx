@@ -1,22 +1,27 @@
 import Link from "next/link";
+import { DemoVideo } from "@/components/DemoVideo";
 import { ContributionGraph } from "@/components/ContributionGraph/ContributionGraph";
 import { ArrowIcon, GitHubIcon, LinkedInIcon } from "@/components/Icons";
+import { Experience } from "@/components/Experience/Experience";
 import { PhotoSlot } from "@/components/PhotoSlot";
 import { Reveal } from "@/components/Reveal";
-import { bankr, education, experience, githubUrl, site, stats } from "@/content";
+import { readText, renderInline } from "@/lib/markdown";
+import { bankr, education, experience, githubUrl, site } from "@/content";
 import styles from "./page.module.css";
 
 export default function Home() {
+  const intro = readText("intro.md");
+  const teaser = readText("teaser.md");
   return (
     <>
       <section className={`container ${styles.hero}`}>
         <div className={styles.heroText}>
           <p className="eyebrow">{site.hero.eyebrow}</p>
           <h1 className={styles.headline}>{site.hero.headline}</h1>
-          <p className={styles.intro}>{site.hero.intro}</p>
+          <p className={styles.intro}>{renderInline(intro)}</p>
           <div className={styles.actions}>
-            <Link href="/bankr" className="btn btn-primary">
-              See Bankr
+            <Link href="/#projects" className="btn btn-primary">
+              See projects
             </Link>
             <a href={site.resume} className="btn btn-secondary">
               Résumé
@@ -32,23 +37,16 @@ export default function Home() {
         />
       </section>
 
-      <section className="container" aria-label="By the numbers">
-        <ul className={styles.stats}>
-          {stats.map((stat, i) => (
-            <Reveal as="li" key={stat.value} className={styles.stat} delay={i * 80}>
-              <span className={styles.statValue}>{stat.value}</span>
-              <span className={styles.statLabel}>{stat.label}</span>
-            </Reveal>
-          ))}
-        </ul>
-      </section>
-
-      <section className="section" id="bankr">
+      <section className="section" id="projects">
         <div className="container">
-          <Reveal className={`card ${styles.feature}`}>
+          <Reveal>
+            <p className="eyebrow">Projects</p>
+            <h2 className="section-title">Things I&apos;m building.</h2>
+          </Reveal>
+          <Reveal className={`card ${styles.feature}`} delay={80}>
             <div>
               <p className="eyebrow">Side project · {bankr.status}</p>
-              <h2 className="section-title">{bankr.name}</h2>
+              <h3 className={styles.projectName}>{bankr.name}</h3>
               <p className="section-lede">{bankr.tagline}</p>
               <ul className={styles.featureList}>
                 {bankr.highlights.map((point) => (
@@ -56,16 +54,10 @@ export default function Home() {
                 ))}
               </ul>
               <Link href="/bankr" className="text-link">
-                Read the case study <ArrowIcon />
+                What is this? <ArrowIcon />
               </Link>
             </div>
-            <ul className={`chips ${styles.featureStack}`} aria-label="Stack">
-              {bankr.stack.map((tech) => (
-                <li key={tech} className="chip">
-                  {tech}
-                </li>
-              ))}
-            </ul>
+            <DemoVideo className={styles.featureDemo} />
           </Reveal>
         </div>
       </section>
@@ -75,7 +67,7 @@ export default function Home() {
           <Reveal>
             <p className="eyebrow">Building in public</p>
             <h2 className="section-title">What I&apos;ve been shipping.</h2>
-            <p className="section-lede">My GitHub activity over the last year. Switch to Bankr to see just that repo.</p>
+            <p className="section-lede">My GitHub activity over the last year.</p>
           </Reveal>
           <Reveal className={styles.graphWrap}>
             <ContributionGraph />
@@ -89,37 +81,7 @@ export default function Home() {
             <p className="eyebrow">Experience</p>
             <h2 className="section-title">Where I&apos;ve worked.</h2>
           </Reveal>
-          <ol className={styles.roles}>
-            {experience.map((role) => (
-              <Reveal as="li" key={`${role.company}-${role.title}`} className={styles.role}>
-                <div className={styles.roleMeta}>
-                  <span>{role.end ? `${role.start} to ${role.end}` : role.start}</span>
-                </div>
-                <div>
-                  <h3 className={styles.roleTitle}>
-                    {role.title}, {role.company}
-                  </h3>
-                  {role.team && <p className={styles.roleTeam}>{role.team} team</p>}
-                  <ul className={styles.roleHighlights}>
-                    {role.highlights.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                </div>
-              </Reveal>
-            ))}
-            <Reveal as="li" className={styles.role}>
-              <div className={styles.roleMeta}>
-                <span>
-                  {education.start} to {education.end}
-                </span>
-              </div>
-              <div>
-                <h3 className={styles.roleTitle}>{education.school}</h3>
-                <p className={styles.roleTeam}>{education.degree}</p>
-              </div>
-            </Reveal>
-          </ol>
+          <Experience roles={experience} education={education} />
         </div>
       </section>
 
@@ -129,7 +91,7 @@ export default function Home() {
           <div>
             <p className="eyebrow">About</p>
             <h2 className="section-title">A bit about me.</h2>
-            <p className="section-lede">{site.about.teaser}</p>
+            <p className="section-lede">{renderInline(teaser)}</p>
             <p className={styles.aboutLink}>
               <Link href="/about" className="text-link">
                 More about me <ArrowIcon />

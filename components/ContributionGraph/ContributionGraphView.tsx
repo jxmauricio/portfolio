@@ -4,11 +4,8 @@ import { useEffect, useRef, useState, type PointerEvent } from "react";
 import type { ContributionCalendar, ContributionData } from "@/lib/github";
 import styles from "./ContributionGraph.module.css";
 
-export type GraphView = "all" | "repo";
-
 type Props = {
   data: ContributionData;
-  initialView: GraphView;
   profileUrl: string;
 };
 
@@ -22,10 +19,6 @@ function parseDate(date: string) {
 
 function formatDay(date: string) {
   return parseDate(date).toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
-}
-
-function emptyLike(calendar: ContributionCalendar): ContributionCalendar {
-  return { total: 0, weeks: calendar.weeks.map((week) => week.map((day) => ({ ...day, count: 0 }))) };
 }
 
 function levelFor(count: number, max: number) {
@@ -52,16 +45,14 @@ function monthLabels(calendar: ContributionCalendar) {
   return labels;
 }
 
-export function ContributionGraphView({ data, initialView, profileUrl }: Props) {
-  const [view, setView] = useState<GraphView>(initialView);
+export function ContributionGraphView({ data, profileUrl }: Props) {
   const [tooltip, setTooltip] = useState<Tooltip | null>(null);
   const frameRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const calendar = view === "repo" ? (data.repo ?? emptyLike(data.all)) : data.all;
+  const calendar = data.all;
   const max = Math.max(0, ...calendar.weeks.flat().map((d) => d.count));
-  const unit = view === "repo" ? "commit" : "contribution";
-  const plural = (n: number) => `${n.toLocaleString("en-US")} ${unit}${n === 1 ? "" : "s"}`;
+  const plural = (n: number) => `${n.toLocaleString("en-US")} contribution${n === 1 ? "" : "s"}`;
 
   // Start scrolled to the most recent weeks on narrow screens.
   useEffect(() => {
@@ -87,19 +78,7 @@ export function ContributionGraphView({ data, initialView, profileUrl }: Props) 
   return (
     <div className={`card ${styles.graph}`}>
       <div className={styles.header}>
-        <p className={styles.total}>
-          {view === "repo"
-            ? `${plural(calendar.total)} to ${data.repoName} in the last year`
-            : `${plural(calendar.total)} in the last year`}
-        </p>
-        <div className={styles.toggle} role="group" aria-label="Contribution source">
-          <button type="button" aria-pressed={view === "all"} onClick={() => setView("all")}>
-            All GitHub
-          </button>
-          <button type="button" aria-pressed={view === "repo"} onClick={() => setView("repo")}>
-            {data.repoName}
-          </button>
-        </div>
+        <p className={styles.total}>{plural(calendar.total)} in the last year</p>
       </div>
 
       <div className={styles.frame} ref={frameRef}>

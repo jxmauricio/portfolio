@@ -1,8 +1,3 @@
-export type Stat = {
-  value: string;
-  label: string;
-};
-
 export type Role = {
   company: string;
   title: string;

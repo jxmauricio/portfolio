@@ -16,6 +16,7 @@
 
 .image {
   object-fit: cover;
+  object-position: center 75%;
 }
 
 .initials {

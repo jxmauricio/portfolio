@@ -9,7 +9,7 @@ export function Footer() {
         <p>{site.name}</p>
         <ul className={styles.links}>
           <li>
-            <Link href="/bankr">Bankr</Link>
+            <Link href="/#projects">Projects</Link>
           </li>
           <li>
             <Link href="/about">About</Link>

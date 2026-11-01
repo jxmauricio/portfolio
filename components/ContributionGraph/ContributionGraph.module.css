@@ -25,33 +25,6 @@
   font-weight: 600;
 }
 
-.toggle {
-  display: inline-flex;
-  padding: 3px;
-  border-radius: var(--radius-pill);
-  background: var(--ground-alt);
-}
-
-.toggle button {
-  min-height: 36px;
-  padding: 0 16px;
-  border: 0;
-  border-radius: var(--radius-pill);
-  background: transparent;
-  color: var(--text-secondary);
-  font: inherit;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-.toggle button[aria-pressed="true"] {
-  background: var(--toggle-active);
-  color: var(--text);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
-}
-
 .frame {
   position: relative;
   display: flex;

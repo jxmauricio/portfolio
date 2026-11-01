@@ -2,15 +2,17 @@ import type { Metadata } from "next";
 import { GitHubIcon, LinkedInIcon } from "@/components/Icons";
 import { PhotoSlot } from "@/components/PhotoSlot";
 import { Reveal } from "@/components/Reveal";
+import { readParagraphs, readText, renderInline, stripInline } from "@/lib/markdown";
 import { education, experience, githubUrl, site } from "@/content";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
   title: "About",
-  description: site.about.teaser,
+  description: stripInline(readText("teaser.md")),
 };
 
 export default function AboutPage() {
+  const paragraphs = readParagraphs("about.md");
   return (
     <>
       <section className={`container ${styles.intro}`}>
@@ -19,8 +21,8 @@ export default function AboutPage() {
           <p className="eyebrow">About</p>
           <h1 className={styles.title}>Hi, I&apos;m John.</h1>
           <div className={styles.body}>
-            {site.about.paragraphs.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
+            {paragraphs.map((paragraph) => (
+              <p key={paragraph}>{renderInline(paragraph)}</p>
             ))}
           </div>
         </div>

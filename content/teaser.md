@@ -1,0 +1,1 @@
+I studied data science at UC San Diego, did machine learning research, taught applied ML at ID Tech, and then fell for shipping product. Now I split my time between feature development at work and developer productivity using AI while also working on my side projects!

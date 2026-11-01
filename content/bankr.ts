@@ -8,8 +8,6 @@ export const bankr = {
   status: "Private beta",
   // [PLACEHOLDER] public repo URL once it's open.
   repoUrl: null as string | null,
-  // Repo name used to filter commits for the "Bankr" view of the contribution graph.
-  repoName: "Bankr",
   // [PLACEHOLDER] link to the LinkedIn article on evals.
   articleUrl: null as string | null,
   articleTitle: "How evals fixed my chatbot's math",

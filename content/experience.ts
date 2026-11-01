@@ -23,6 +23,8 @@ export const experience: Role[] = [
     end: "Jul 2023",
     highlights: [
       "Automated billing notifications with GitHub Actions and Python, cutting manual effort by 50%.",
+      "Wrote pandas preprocessing scripts to clean and standardize usage and billing data for analytics and reporting.",
+      "Built Metabase dashboards with SQL to track product and business KPIs for leadership and customer success.",
     ],
   },
   {
@@ -30,14 +32,20 @@ export const experience: Role[] = [
     title: "Instructor",
     start: "Summer 2023",
     end: "",
-    highlights: ["Taught applied machine learning with scikit-learn."],
+    highlights: [
+      "Taught applied machine learning with scikit-learn, covering classification and feature engineering.",
+      "Built data preprocessing pipelines into lessons to simulate lightweight production ML workflows.",
+    ],
   },
   {
     company: "UC San Diego",
     title: "Machine Learning Researcher",
     start: "Summer 2022",
     end: "",
-    highlights: ["Worked on image segmentation with TensorFlow and OpenCV."],
+    highlights: [
+      "Built computer-vision image segmentation models with TensorFlow and OpenCV.",
+      "Integrated data pipelines to analyze real-world sensor data and evaluate model accuracy.",
+    ],
   },
 ];
 

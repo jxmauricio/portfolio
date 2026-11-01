@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ContributionGraph } from "@/components/ContributionGraph/ContributionGraph";
 import { ArrowIcon, GitHubIcon } from "@/components/Icons";
+import { DemoVideo } from "@/components/DemoVideo";
 import { Reveal } from "@/components/Reveal";
 import { bankr } from "@/content";
 import styles from "./page.module.css";
@@ -33,6 +33,7 @@ export default function BankrPage() {
             Ask about the beta
           </Link>
         </div>
+        <DemoVideo className={styles.demo} />
       </section>
 
       <section className="section section-alt">
@@ -73,18 +74,6 @@ export default function BankrPage() {
                 </li>
               ))}
             </ul>
-          </Reveal>
-        </div>
-      </section>
-
-      <section className="section section-alt">
-        <div className="container">
-          <Reveal>
-            <p className="eyebrow">Progress</p>
-            <h2 className="section-title">Commits to Bankr.</h2>
-          </Reveal>
-          <Reveal className={styles.graphWrap}>
-            <ContributionGraph initialView="repo" />
           </Reveal>
         </div>
       </section>

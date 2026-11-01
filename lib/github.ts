@@ -16,13 +16,11 @@ export type ContributionCalendar = {
 
 export type ContributionData = {
   all: ContributionCalendar;
-  repo: ContributionCalendar | null; // commits to the filtered repo, same date grid as `all`
-  repoName: string;
   connected: boolean; // false when the token or username is missing, or the request failed
 };
 
 const QUERY = `
-  query ($login: String!, $after: String) {
+  query ($login: String!) {
     user(login: $login) {
       contributionsCollection {
         contributionCalendar {
@@ -31,21 +29,6 @@ const QUERY = `
             contributionDays {
               date
               contributionCount
-            }
-          }
-        }
-        commitContributionsByRepository(maxRepositories: 100) {
-          repository {
-            name
-          }
-          contributions(first: 100, after: $after) {
-            nodes {
-              occurredAt
-              commitCount
-            }
-            pageInfo {
-              hasNextPage
-              endCursor
             }
           }
         }
@@ -62,27 +45,20 @@ type QueryResult = {
           totalContributions: number;
           weeks: { contributionDays: { date: string; contributionCount: number }[] }[];
         };
-        commitContributionsByRepository: {
-          repository: { name: string };
-          contributions: {
-            nodes: { occurredAt: string; commitCount: number }[];
-            pageInfo: { hasNextPage: boolean; endCursor: string | null };
-          };
-        }[];
       };
     } | null;
   };
   errors?: { message: string }[];
 };
 
-async function runQuery(token: string, login: string, after: string | null) {
+async function runQuery(token: string, login: string) {
   const res = await fetch("https://api.github.com/graphql", {
     method: "POST",
     headers: {
       Authorization: `bearer ${token}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ query: QUERY, variables: { login, after } }),
+    body: JSON.stringify({ query: QUERY, variables: { login } }),
   });
   if (!res.ok) throw new Error(`GitHub GraphQL ${res.status}`);
   const json = (await res.json()) as QueryResult;
@@ -107,25 +83,21 @@ function emptyCalendar(): ContributionCalendar {
 }
 
 /**
- * Contribution calendar for the last year, plus commits to `repoName` on the
- * same grid. Runs on the server only and is cached for a day, so the token is
- * never sent to the browser and GitHub is hit at most once per day.
+ * Contribution calendar for the last year. Runs on the server only and is
+ * cached for a day, so the token is never sent to the browser and GitHub is
+ * hit at most once per day.
  */
-export async function getContributions(
-  login: string,
-  repoName: string,
-): Promise<ContributionData> {
+export async function getContributions(login: string): Promise<ContributionData> {
   "use cache";
   cacheLife("days");
 
   const token = process.env.GITHUB_TOKEN;
   if (!token || !login || login.includes("PLACEHOLDER")) {
-    return { all: emptyCalendar(), repo: null, repoName, connected: false };
+    return { all: emptyCalendar(), connected: false };
   }
 
   try {
-    const first = await runQuery(token, login, null);
-    const calendar = first.contributionCalendar;
+    const calendar = (await runQuery(token, login)).contributionCalendar;
     const all: ContributionCalendar = {
       total: calendar.totalContributions,
       weeks: calendar.weeks.map((w) =>
@@ -133,43 +105,9 @@ export async function getContributions(
       ),
     };
 
-    // Daily commit counts for the repo. occurredAt is midnight in the user's
-    // time zone expressed in UTC, so the date part matches the calendar day
-    // for time zones west of UTC.
-    const repoCounts = new Map<string, number>();
-    const matchRepo = (c: typeof first) =>
-      c.commitContributionsByRepository.find(
-        (r) => r.repository.name.toLowerCase() === repoName.toLowerCase(),
-      );
-
-    let entry = matchRepo(first);
-    for (let page = 0; entry && page < 5; page++) {
-      for (const node of entry.contributions.nodes) {
-        const date = node.occurredAt.slice(0, 10);
-        repoCounts.set(date, (repoCounts.get(date) ?? 0) + node.commitCount);
-      }
-      const { hasNextPage, endCursor } = entry.contributions.pageInfo;
-      if (!hasNextPage) break;
-      entry = matchRepo(await runQuery(token, login, endCursor));
-    }
-
-    let repoTotal = 0;
-    const repoWeeks = all.weeks.map((week) =>
-      week.map((day) => {
-        const count = repoCounts.get(day.date) ?? 0;
-        repoTotal += count;
-        return { date: day.date, count };
-      }),
-    );
-
-    return {
-      all,
-      repo: { total: repoTotal, weeks: repoWeeks },
-      repoName,
-      connected: true,
-    };
+    return { all, connected: true };
   } catch (error) {
     console.warn("[contributions] falling back to empty graph:", error);
-    return { all: emptyCalendar(), repo: null, repoName, connected: false };
+    return { all: emptyCalendar(), connected: false };
   }
 }
