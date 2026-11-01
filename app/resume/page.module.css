@@ -1,0 +1,33 @@
+.wrap {
+  padding-top: clamp(40px, 8vw, 88px);
+  padding-bottom: var(--section-gap);
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.title {
+  font-size: clamp(40px, 6vw, 64px);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  margin-top: 12px;
+}
+
+.pdf {
+  display: block;
+  width: 100%;
+  height: min(1100px, 80vh);
+  margin-top: 32px;
+  padding: 0;
+  overflow: hidden;
+}
+
+.fallback {
+  padding: 28px;
+  color: var(--text-secondary);
+}

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { Footer } from "@/components/Footer";
 import { Nav } from "@/components/Nav";
 import { githubUrl, site } from "@/content";
@@ -29,6 +30,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Nav name={site.name} githubUrl={githubUrl()} linkedinUrl={site.linkedin} />
         <main>{children}</main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
