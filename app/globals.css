@@ -26,8 +26,26 @@
   color-scheme: light;
 }
 
+/* Dark theme: chosen in the header toggle (data-theme, set before paint in
+   layout.tsx), or the system setting when JS hasn't set one. */
+:root[data-theme="dark"] {
+  --ground: #000000;
+  --ground-alt: #161617;
+  --surface: #1d1d1f;
+  --text: #f5f5f7;
+  --text-secondary: #a1a1a6;
+  --hairline: rgba(255, 255, 255, 0.14);
+  --accent: #6b8ff5;
+  --accent-contrast: #000000;
+  --nav-bg: rgba(22, 22, 23, 0.72);
+  --cell-empty: #2a2a2d;
+  --toggle-active: #3a3a3c;
+  --shadow: none;
+  color-scheme: dark;
+}
+
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme]) {
     --ground: #000000;
     --ground-alt: #161617;
     --surface: #1d1d1f;

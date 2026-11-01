@@ -1,0 +1,142 @@
+/* Only shown when there's room to the right of the 1080px content column. */
+.rail {
+  display: none;
+}
+
+@media (min-width: 1320px) {
+  .rail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    top: 76px;
+    bottom: 24px;
+    right: 28px;
+    width: 76px;
+    z-index: 10;
+    pointer-events: none;
+  }
+}
+
+/* Top-out anchor the rope hangs from. */
+.anchor {
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--text-secondary);
+  border-radius: 50%;
+  margin-bottom: -5px;
+  z-index: 1;
+  background: var(--ground);
+}
+
+.wall {
+  --rock: #cfc6b8;
+  --rock-light: #e6dfd3;
+  --rock-dark: #a89d8c;
+  position: relative;
+  flex: 1;
+  width: 100%;
+}
+
+:global(:root[data-theme="dark"]) .wall {
+  --rock: #3b3733;
+  --rock-light: #4d4843;
+  --rock-dark: #262320;
+}
+
+@media (prefers-color-scheme: dark) {
+  :global(:root:not([data-theme])) .wall {
+    --rock: #3b3733;
+    --rock-light: #4d4843;
+    --rock-dark: #262320;
+  }
+}
+
+.rock {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+}
+
+.face {
+  fill: var(--rock);
+}
+
+.facetLight {
+  fill: var(--rock-light);
+  opacity: 0.55;
+}
+
+.facetDark {
+  fill: var(--rock-dark);
+  opacity: 0.45;
+}
+
+.crack {
+  fill: none;
+  stroke: var(--rock-dark);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.hold {
+  stroke: rgba(0, 0, 0, 0.28);
+  stroke-width: 0.8;
+}
+
+.bolt {
+  fill: rgba(0, 0, 0, 0.45);
+}
+
+.ledgeShadow {
+  fill: rgba(0, 0, 0, 0.18);
+}
+
+.ledgeFront {
+  fill: var(--rock-dark);
+}
+
+.ledgeTop {
+  fill: var(--rock-light);
+}
+
+.rope {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  border-left: 1.5px dashed var(--accent);
+  opacity: 0.8;
+}
+
+.climber {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  margin-left: -20px;
+  will-change: transform;
+}
+
+.climber svg {
+  display: block;
+  overflow: visible;
+}
+
+.body polyline {
+  fill: none;
+  stroke: var(--text);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.torso {
+  fill: var(--text);
+  stroke: var(--text);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.helmet {
+  fill: var(--accent);
+}

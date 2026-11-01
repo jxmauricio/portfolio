@@ -1,0 +1,14 @@
+/* Show the moon in light mode (switch to night) and the sun in dark mode. */
+.moon,
+.sun {
+  display: inline-flex;
+}
+
+.sun,
+:global(:root[data-theme="dark"]) .moon {
+  display: none;
+}
+
+:global(:root[data-theme="dark"]) .sun {
+  display: inline-flex;
+}

@@ -2,9 +2,12 @@ import Link from "next/link";
 import { DemoVideo } from "@/components/DemoVideo";
 import { ContributionGraph } from "@/components/ContributionGraph/ContributionGraph";
 import { ArrowIcon, GitHubIcon, LinkedInIcon } from "@/components/Icons";
+import { EyeButton } from "@/components/EyeButton";
 import { Experience } from "@/components/Experience/Experience";
 import { PhotoSlot } from "@/components/PhotoSlot";
+import { Climber } from "@/components/Climber/Climber";
 import { Reveal } from "@/components/Reveal";
+import { TypedText } from "@/components/TypedText";
 import { readText, renderInline } from "@/lib/markdown";
 import { bankr, education, experience, githubUrl, site } from "@/content";
 import styles from "./page.module.css";
@@ -14,18 +17,19 @@ export default function Home() {
   const teaser = readText("teaser.md");
   return (
     <>
+      <Climber />
       <section className={`container ${styles.hero}`}>
         <div className={styles.heroText}>
           <p className="eyebrow">{site.hero.eyebrow}</p>
-          <h1 className={styles.headline}>{site.hero.headline}</h1>
+          <h1 className={styles.headline}>
+            <TypedText text={site.hero.headline} />
+          </h1>
           <p className={styles.intro}>{renderInline(intro)}</p>
           <div className={styles.actions}>
             <Link href="/#projects" className="btn btn-primary">
               See projects
             </Link>
-            <a href={site.resume} className="btn btn-secondary">
-              Résumé
-            </a>
+            <EyeButton href={site.resume}>Résumé</EyeButton>
           </div>
         </div>
         <PhotoSlot
@@ -37,7 +41,17 @@ export default function Home() {
         />
       </section>
 
-      <section className="section" id="projects">
+      <section className="section" id="work">
+        <div className="container">
+          <Reveal>
+            <p className="eyebrow">Experience</p>
+            <h2 className="section-title">Where I&apos;ve worked.</h2>
+          </Reveal>
+          <Experience roles={experience} education={education} />
+        </div>
+      </section>
+
+      <section className="section section-alt" id="projects">
         <div className="container">
           <Reveal>
             <p className="eyebrow">Projects</p>
@@ -62,7 +76,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section section-alt" id="github">
+      <section className="section" id="github">
         <div className="container">
           <Reveal>
             <p className="eyebrow">Building in public</p>
@@ -72,16 +86,6 @@ export default function Home() {
           <Reveal className={styles.graphWrap}>
             <ContributionGraph />
           </Reveal>
-        </div>
-      </section>
-
-      <section className="section" id="work">
-        <div className="container">
-          <Reveal>
-            <p className="eyebrow">Experience</p>
-            <h2 className="section-title">Where I&apos;ve worked.</h2>
-          </Reveal>
-          <Experience roles={experience} education={education} />
         </div>
       </section>
 
@@ -108,9 +112,7 @@ export default function Home() {
             I&apos;m always happy to hear about interesting problems, especially in payments, fintech, or AI products.
           </p>
           <div className={styles.contactActions}>
-            <a href={`mailto:${site.email}`} className="btn btn-primary">
-              {site.email}
-            </a>
+            <EyeButton href={`mailto:${site.email}`}>{site.email}</EyeButton>
             <a href={site.linkedin} className="btn btn-secondary" target="_blank" rel="noreferrer">
               <LinkedInIcon size={16} /> LinkedIn
             </a>

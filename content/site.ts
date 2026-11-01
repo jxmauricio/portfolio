@@ -16,7 +16,7 @@ export const site = {
   },
   hero: {
     eyebrow: "Software engineer at CoStar Group",
-    headline: "I am John.",
+    headline: "I am John ;)",
   },
 };
 

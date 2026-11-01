@@ -1,0 +1,60 @@
+.root {
+  display: inline-grid;
+}
+
+/* Both layers share one grid cell; the sizer reserves the final width/height. */
+.sizer,
+.typed {
+  grid-area: 1 / 1;
+}
+
+.sizer {
+  visibility: hidden;
+}
+
+.caret {
+  display: inline-block;
+  width: 0.07em;
+  height: 0.88em;
+  margin-left: 0.06em;
+  vertical-align: -0.06em;
+  border-radius: 1px;
+  background: var(--accent);
+  animation: blink 1.05s steps(1) infinite;
+}
+
+/* Hold the caret solid while characters are appearing, like a real cursor. */
+.caret.solid {
+  animation: none;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Without JS the text never types in, so show the full copy instead. */
+:global(html:not(.js)) .sizer {
+  visibility: visible;
+}
+
+:global(html:not(.js)) .typed,
+:global(html:not(.js)) .srOnly {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .caret {
+    animation: none;
+  }
+}
