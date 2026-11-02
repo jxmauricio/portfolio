@@ -22,6 +22,11 @@
   max-width: 560px;
 }
 
+/* A bit brighter in the dark theme so it reads over the galaxy. */
+:global(:root[data-theme="dark"]) .intro {
+  color: #d2d2d7;
+}
+
 .actions {
   display: flex;
   flex-wrap: wrap;

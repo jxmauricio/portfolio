@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { Galaxy } from "@/components/Galaxy/Galaxy";
 import { Footer } from "@/components/Footer";
 import { Nav } from "@/components/Nav";
 import { githubUrl, site } from "@/content";
@@ -30,6 +31,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body>
+        <Galaxy />
         <Nav name={site.name} githubUrl={githubUrl()} linkedinUrl={site.linkedin} />
         <main>{children}</main>
         <Footer />
