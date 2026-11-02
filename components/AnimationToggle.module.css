@@ -1,0 +1,20 @@
+.button {
+  position: relative;
+}
+
+/* A slash through the icon while the animation is off. */
+:global(:root[data-bg="off"]) .button {
+  opacity: 0.55;
+}
+
+:global(:root[data-bg="off"]) .button::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 20px;
+  height: 1.8px;
+  border-radius: 1px;
+  background: currentColor;
+  transform: translate(-50%, -50%) rotate(-45deg);
+}

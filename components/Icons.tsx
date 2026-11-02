@@ -41,6 +41,15 @@ export function MoonIcon({ size = 18 }: IconProps) {
   );
 }
 
+export function SparkleIcon({ size = 18 }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" strokeLinecap="round" aria-hidden="true">
+      <path d="M10 4l1.8 5.2L17 11l-5.2 1.8L10 18l-1.8-5.2L3 11l5.2-1.8L10 4Z" />
+      <path d="M18.5 3.5v3M17 5h3M18.5 16.5v3M17 18h3" />
+    </svg>
+  );
+}
+
 export function MenuIcon({ open, size = 20 }: IconProps & { open: boolean }) {
   return (
     <svg width={size} height={size} viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" aria-hidden="true">

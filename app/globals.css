@@ -143,6 +143,11 @@ img {
   }
 }
 
+/* Background animation switched off: back to the plain solid sections. */
+:root[data-bg="off"] .section-alt {
+  background: var(--ground-alt);
+}
+
 .eyebrow {
   font-size: 15px;
   font-weight: 600;

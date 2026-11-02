@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { GitHubIcon, LinkedInIcon, MenuIcon } from "./Icons";
+import { AnimationToggle } from "./AnimationToggle";
 import { ThemeToggle } from "./ThemeToggle";
 import styles from "./Nav.module.css";
 
@@ -53,6 +54,7 @@ export function Nav({ name, githubUrl, linkedinUrl }: Props) {
           <a href={linkedinUrl} className={styles.iconButton} aria-label="LinkedIn" target="_blank" rel="noreferrer">
             <LinkedInIcon />
           </a>
+          <AnimationToggle className={styles.iconButton} />
           <ThemeToggle className={styles.iconButton} />
           <button
             type="button"
